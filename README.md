@@ -1,5 +1,7 @@
 # 🚐 Travel Trucks
 
+https://travel-trucks-beta-cyan.vercel.app/
+
 ## 📖 Description
 
 **Discover Your Perfect Adventure on Wheels!**
@@ -37,7 +39,7 @@ save your favorite caravans and RVs for your next road trip.
 1. **Clone the repository**
 
 ```bash
-git clone
+git clone https://github.com/Pinar-Altay/TravelTrucks.git
 ```
 
 2. **Install dependencies:**
@@ -55,6 +57,7 @@ npm run dev
 ## 🌐 Deployment
 
 This project is deployed using **Vercel**. Link:
+https://travel-trucks-beta-cyan.vercel.app/
 
 ## Languages
 

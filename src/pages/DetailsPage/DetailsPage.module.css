@@ -1,0 +1,106 @@
+.detailsWrapper {
+  width: 1440px;
+  padding: 48px 64px 52px 64px;
+  margin: 0 auto;
+}
+
+.detailsInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 60px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+  color: var(--main);
+  margin-bottom: 8px;
+}
+
+.starLocation {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.icon {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.iconStar {
+  width: 16px;
+  height: 16px;
+  fill: var(--rating);
+}
+
+/* .map {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+} */
+
+.iconMap {
+  width: 16px;
+  height: 16px;
+}
+
+.reviews {
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 133%;
+}
+
+.description {
+  color: var(--text);
+}
+
+.imgGallery {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.imgCar {
+  border-radius: 10px;
+  width: 292px;
+  height: 312px;
+  object-fit: cover; /* Масштабування та обрізка */
+  object-position: 75% center; /* Центрування зображення */
+}
+
+.formContainer {
+  display: flex;
+  gap: 40px;
+}
+
+.featuresReviewsList {
+  display: flex;
+  gap: 40px;
+  border-bottom: 1px solid var(--gray-light);
+  padding-bottom: 24px;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 120%;
+  color: var(--main);
+  margin-bottom: 56px;
+}
+
+.active {
+  border-bottom: 5px solid var(--button);
+  padding-bottom: 23px;
+}
+
+html {
+  scroll-behavior: smooth;
+}

@@ -1,84 +1,70 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCampers } from "../../redux/camper/operations.js";
-import { selectCampers } from "../../redux/camper/selectors.js";
+import { selectCampers, selectIsLoading } from "../../redux/camper/selectors.js";
+import { selectFilters } from "../../redux/filter/selectors.js";
+import { setFilters } from "../../redux/filter/slice.js";
+
 import FilterForm from "../../components/FilterForm/FilterForm.jsx";
 import CatalogList from "../../components/CatalogList/CatalogList.jsx";
-import css from "./CatalogPage.module.css";
 import Loader from "../../components/Loader/Loader.jsx";
-import { selectIsLoading } from "../../redux/camper/selectors.js";
+import css from "./CatalogPage.module.css";
 
 export default function CatalogPage() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const campers = useSelector(selectCampers);
-  const [filters, setFilters] = useState({});
-  const [filteredCampers, setFilteredCampers] = useState([]);
+  const filters = useSelector(selectFilters);
+
   const [visibleCount, setVisibleCount] = useState(5);
 
   useEffect(() => {
     dispatch(fetchCampers());
   }, [dispatch]);
 
-  useEffect(() => {
+  const filteredCampers = useMemo(() => {
     let filtered = campers;
-
     if (filters && Object.keys(filters).length > 0) {
       filtered = campers.filter(camper => {
         let isValid = true;
-
         if (filters.vehicleType && camper.form !== filters.vehicleType) {
           isValid = false;
         }
 
         const equipmentFilters = [
-          "AC",
-          "TV",
-          "bathroom",
-          "kitchen",
-          "gas",
-          "radio",
-          "water",
-          "microwave",
-          "refrigerator",
+          "AC", "TV", "bathroom", "kitchen", "gas",
+          "radio", "water", "microwave", "refrigerator",
         ];
-
-        for (const equipment of equipmentFilters) {
-          if (filters[equipment] && !camper[equipment]) {
+        for (const eq of equipmentFilters) {
+          if (filters[eq] && !camper[eq]) {
             isValid = false;
           }
         }
 
         if (filters.location) {
           const normalizedInput = filters.location.toLowerCase().trim();
-          const inputWords = normalizedInput
-            .split(",")
-            .map(word => word.trim());
+          const inputWords = normalizedInput.split(",").map(w => w.trim());
+          const camperParts = camper.location.toLowerCase().trim().split(",").map(w => w.trim());
 
-          const camperLocation = camper.location.toLowerCase().trim();
-          const camperParts = camperLocation
-            .split(",")
-            .map(word => word.trim());
-
-          const locationMatches = inputWords.every(inputPart =>
-            camperParts.some(camperPart => camperPart.includes(inputPart))
+          const matches = inputWords.every(part =>
+            camperParts.some(camperPart => camperPart.includes(part))
           );
-
-          if (!locationMatches) {
-            isValid = false;
-          }
+          if (!matches) isValid = false;
         }
 
         return isValid;
       });
     }
-
-    setFilteredCampers(filtered);
-    setVisibleCount(5); // Скидуємо кільк кемперів при зміні фильтра
-  }, [filters, campers]);
+    return filtered;
+  }, [campers, filters]);
 
   const handleLoadMore = () => {
     setVisibleCount(prev => prev + 5);
+  };
+
+  const handleFilter = values => {
+    dispatch(setFilters(values));
+    setVisibleCount(5);
   };
 
   return (
@@ -87,7 +73,7 @@ export default function CatalogPage() {
         <Loader />
       ) : (
         <>
-          <FilterForm onFilter={setFilters} />
+          <FilterForm onFilter={handleFilter} />
           <CatalogList
             campers={filteredCampers}
             visibleCount={visibleCount}

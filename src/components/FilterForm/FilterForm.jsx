@@ -1,10 +1,16 @@
 import { useId } from "react";
 import { Formik, Form, Field } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFilters } from "../../redux/filter/selectors";
+import { setFilters } from "../../redux/filter/slice";
 import sprite from "../../icons/sprite.svg";
 import css from "./FilterForm.module.css";
 
-export default function FilterForm({ onFilter }) {
+
+export default function FilterForm() {
   const id = useId();
+  const dispatch = useDispatch();
+  const filters = useSelector(selectFilters);
 
   const handleSubmit = (values, actions) => {
     const normalizedLocation = values.location
@@ -17,10 +23,11 @@ export default function FilterForm({ onFilter }) {
       location: normalizedLocation,
     };
 
-    onFilter(filteredValues); // Передача фільтрів до батьківського компонента
-    actions.setSubmitting(false); // Завершення стану сабміту
-    actions.resetForm();
+    dispatch(setFilters(filteredValues));
+    actions.setSubmitting(false);
   };
+
+  
 
   const vehicleEquipment = [
     { name: "AC", label: "AC", icon: "icon-ac" },
@@ -37,35 +44,19 @@ export default function FilterForm({ onFilter }) {
 
   const vehicleTypes = [
     { value: "van", label: "Van", icon: "icon-l-grid" },
-    {
-      value: "fullyIntegrated",
-      label: "Fully Integrated",
-      icon: "icon-m-grid",
-    },
+    { value: "fullyIntegrated", label: "Fully Integrated", icon: "icon-m-grid" },
     { value: "alcove", label: "Alcove", icon: "icon-s-grid" },
   ];
 
   return (
     <Formik
-      initialValues={{
-        location: "",
-        AC: false,
-        TV: false,
-        bathroom: false,
-        gas: false,
-        kitchen: false,
-        microwave: false,
-        radio: false,
-        refrigerator: false,
-        water: false,
-        automatic: false,
-        vehicleType: "",
-      }}
+      initialValues={filters}
       onSubmit={handleSubmit}
+      enableReinitialize
     >
       {({ values, setFieldValue }) => (
         <Form className={css.sidebar}>
-          {/* Локація */}
+          {/* Location */}
           <label htmlFor={`${id}-location`} className={css.locationTitle}>
             Location
           </label>
@@ -82,7 +73,7 @@ export default function FilterForm({ onFilter }) {
             />
           </div>
 
-          {/* Фільтри */}
+          {/* Filters */}
           <label className={css.filters}>Filters</label>
 
           <h2 className={css.vehicle}>Vehicle equipment</h2>
@@ -127,11 +118,10 @@ export default function FilterForm({ onFilter }) {
                   checked={values.vehicleType === type.value}
                   className={css.fieldItem}
                   onChange={() => {
-                    // Логіка: якщо вибрано той самий тип — знімаємо вибір
                     if (values.vehicleType === type.value) {
-                      setFieldValue("vehicleType", ""); // Знімаємо вибір
+                      setFieldValue("vehicleType", "");
                     } else {
-                      setFieldValue("vehicleType", type.value); // Встановлюємо значення
+                      setFieldValue("vehicleType", type.value);
                     }
                   }}
                 />
@@ -153,3 +143,13 @@ export default function FilterForm({ onFilter }) {
     </Formik>
   );
 }
+
+
+
+
+
+
+
+
+
+

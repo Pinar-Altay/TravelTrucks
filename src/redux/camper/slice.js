@@ -1,3 +1,4 @@
+
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchCampers, fetchByIdCamper } from "./operations";
 
@@ -11,7 +12,7 @@ const camperSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchCampers.pending, (state, action) => {
+      .addCase(fetchCampers.pending, state => {
         state.isLoading = true;
         state.error = null;
       })

@@ -27,7 +27,6 @@ export default function FilterForm() {
     actions.setSubmitting(false);
   };
 
-  
 
   const vehicleEquipment = [
     { name: "AC", label: "AC", icon: "icon-ac" },
@@ -43,7 +42,9 @@ export default function FilterForm() {
   ];
 
   const vehicleTypes = [
-    { value: "van", label: "Van", icon: "icon-l-grid" },
+    // Burayı değiştirdim ⬇️
+    // { value: "van", label: "Van", icon: "icon-l-grid" },
+    { value: "panelTruck", label: "Panel Truck", icon: "icon-l-grid" },
     { value: "fullyIntegrated", label: "Fully Integrated", icon: "icon-m-grid" },
     { value: "alcove", label: "Alcove", icon: "icon-s-grid" },
   ];
@@ -143,13 +144,3 @@ export default function FilterForm() {
     </Formik>
   );
 }
-
-
-
-
-
-
-
-
-
-

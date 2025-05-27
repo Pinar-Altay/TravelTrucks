@@ -42,16 +42,16 @@ export default function DetailsPage() {
   }, [dispatch, id]);
 
   const handleReviewClick = e => {
-    e.preventDefault(); // Отменяем стандартное поведение перехода по ссылке
-    navigate(`/catalog/${id}/reviews`); // Переход на страницу с отзывами
+    e.preventDefault(); 
+    navigate(`/catalog/${id}/reviews`); 
 
-    // После перехода прокручиваем к нужному элементу
+    
     setTimeout(() => {
       const reviewSection = document.getElementById("reviews");
       if (reviewSection) {
         reviewSection.scrollIntoView({ behavior: "smooth" });
       }
-    }, 300); // Ждем немного, чтобы переход успел выполниться
+    }, 300); 
   };
 
   if (isLoading) return <Loader />;

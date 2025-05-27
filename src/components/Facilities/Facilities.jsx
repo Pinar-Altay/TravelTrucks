@@ -21,7 +21,7 @@ export default function Facilities({ camper }) {
     ([key, value]) => value === true
   );
 
-  // Добаємо властивості з їх значеннями, якщо вони існують
+  
   if (camper.transmission) {
     trueFeatures.push(["transmission", camper.transmission]);
   }
@@ -37,7 +37,7 @@ export default function Facilities({ camper }) {
           <svg className={css.icon}>
             <use href={`${sprite}#${iconMap[key] || "icon-default"}`} />
           </svg>
-          {/* Якщо ця властивість transmission, виводимо значення */}
+          {/* If this property is transmission, we output the value */}
           <p className={css.facilitiesText}>
             {key === "transmission" || key === "engine" ? value : key}
           </p>

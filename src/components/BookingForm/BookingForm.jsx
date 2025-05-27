@@ -34,7 +34,7 @@ export default function BookingForm() {
         onSubmit={(values, { resetForm }) => {
           // console.log("Form submitted with values:", values);
 
-          // Імітація успішної відправки даних
+          
           setTimeout(() => {
             alert("Form submitted successfully!");
             resetForm();

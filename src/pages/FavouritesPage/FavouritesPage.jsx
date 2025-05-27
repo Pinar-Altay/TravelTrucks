@@ -15,7 +15,7 @@ export default function FavouritesPage() {
   // console.log(favouritesList);
 
   const favouriteCampers = campers.filter(
-    camper => favouritesList.includes(camper.id.toString()) // Перевіряємо ID як рядки
+    camper => favouritesList.includes(camper.id.toString()) 
   );
 
   return (

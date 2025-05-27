@@ -22,14 +22,26 @@ export default function CatalogPage() {
     dispatch(fetchCampers());
   }, [dispatch]);
 
+
   const filteredCampers = useMemo(() => {
     let filtered = campers;
     if (filters && Object.keys(filters).length > 0) {
       filtered = campers.filter(camper => {
         let isValid = true;
+        /*
         if (filters.vehicleType && camper.form !== filters.vehicleType) {
           isValid = false;
         }
+        */
+        // Burayı ekledim ⬇️ 
+        if (
+          filters.vehicleType &&
+          camper.form.toLowerCase() !== filters.vehicleType.toLowerCase()
+        ) {
+          isValid = false;
+        }
+
+        
 
         const equipmentFilters = [
           "AC", "TV", "bathroom", "kitchen", "gas",
@@ -57,6 +69,8 @@ export default function CatalogPage() {
     }
     return filtered;
   }, [campers, filters]);
+
+
 
   const handleLoadMore = () => {
     setVisibleCount(prev => prev + 5);

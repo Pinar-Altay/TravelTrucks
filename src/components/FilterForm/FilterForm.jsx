@@ -44,7 +44,7 @@ export default function FilterForm() {
   const vehicleTypes = [
     // Burayı değiştirdim ⬇️
     // { value: "van", label: "Van", icon: "icon-l-grid" },
-    { value: "panelTruck", label: "Panel Truck", icon: "icon-l-grid" },
+    { value: "panelTruck", label: "Van", icon: "icon-l-grid" },
     { value: "fullyIntegrated", label: "Fully Integrated", icon: "icon-m-grid" },
     { value: "alcove", label: "Alcove", icon: "icon-s-grid" },
   ];
